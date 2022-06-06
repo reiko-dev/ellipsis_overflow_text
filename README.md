@@ -12,13 +12,14 @@ _Inspired and based on the [AutoSizeText](https://pub.dev/packages/auto_size_tex
 - [Documentation](https://pub.dev/documentation/ellipsis_overflow_text/latest/ellipsis_overflow_text/EllipsisOverflowText-class.html)
 - [Pub Package](https://pub.dev/packages/ellipsis_overflow_text)
 - [GitHub Repository](https://github.com/reiko-dev/ellipsis_overflow_text)
-- [Online Demo](https://appetize.io/)
 
 ## Contents
 
 - [Usage](#usage)
 - [Parameters](#parameters)
 - [Performance](#performance)
+- [Troubleshooting](#troubleshooting)
+- [License](#mit-license)
 
 ## Usage
 
@@ -26,7 +27,7 @@ _Inspired and based on the [AutoSizeText](https://pub.dev/packages/auto_size_tex
 
 ```dart
 EllipsisOverflowText(
-  'My greath text',
+  'Some text here',
   style: TextStyle(fontSize: 16),
 )
 ```
@@ -69,7 +70,7 @@ If `EllipsisOverflowText` overflows or does not replace the text with ellipsis c
 Row(
   children: <Widget>[
     EllipsisOverflowText(
-      'Here is a very long text, which should be resized',
+      'Here is a very long text, which will use ellipsis in case the text overflows',
     ),
   ],
 )
@@ -91,7 +92,8 @@ Row(
 }
 ```
 
-Further explanation can be found [here](https://stackoverflow.com/a/53908204), the questions is about AutoSizeText package, but the answer is the same for this package. If you still have problems, please [open an issue](https://github.com/reiko-dev/ellipsis_overflow_text/issues/new).
+Further explanation can be found [here](https://stackoverflow.com/a/53908204), the question is about the AutoSizeText package, but the answer is the same for this package.</b>
+If you still have problems, please [open an issue](https://github.com/reiko-dev/ellipsis_overflow_text/issues/new).
 
 ## MIT License
 ```
