@@ -1,6 +1,6 @@
 # ellipsis_overflow_text
 
-[![Version](https://img.shields.io/badge/pub-v1.0.0-blue.svg)](https://pub.dev/packages/auto_size_text) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+[![Version](https://img.shields.io/badge/pub-v1.0.1-blue.svg)](https://pub.dev/packages/ellipsis_overflow_text) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 Flutter widget that automatically sets the number of lines to be shown on a text with the ellipsis overflow type.
 
@@ -23,14 +23,42 @@ _Inspired and based on the [AutoSizeText](https://pub.dev/packages/auto_size_tex
 
 ## Usage
 
+### Common use
 `EllipsisOverflowText` behaves exactly like a `Text`. The only difference is that it automatically sets the number of lines to be shown on a text with the ellipsis overflow type.
 
 ```dart
 EllipsisOverflowText(
   'Some text here',
-  style: TextStyle(fontSize: 16),
+  style: TextStyle(fontSize: 22),
 )
 ```
+### Showing ellipsis on break line overflow
+For showing an ellipsis overflow when the last rendered text line ends with a break line, you can set the `showEllipsisOnBreakLineOverflow` property to `true`. 
+
+
+Default behavior:<br>
+```dart
+EllipsisOverflowText(
+  'First String here\n'
+  'This String will fit the given bounds.',
+  style: TextStyle(fontSize: 22),
+)
+```
+![image](https://user-images.githubusercontent.com/9553743/172268827-343df688-7565-4011-a9b8-0c84e76acbfb.png)
+
+
+
+
+With `showEllipsisOnBreakLineOverflow` equals to `true`. <br>
+```dart
+EllipsisOverflowText(
+  'First String here\n'
+  'This String will fit the given bounds.',
+  showEllipsisOnBreakLineOverflow: true,
+),
+```
+
+![image](https://user-images.githubusercontent.com/9553743/172269786-eb71b41a-c0b1-4389-b859-785592dae531.png)
 
 ## Parameters
 
@@ -51,9 +79,9 @@ EllipsisOverflowText(
 | `textHeightBehavior`* | Defines how to apply [TextStyle.height] over and under text. |
 | `textScaleFactor`* | The number of font pixels for each logical pixel. |
 | `textWidthBasis`* | The different ways of measuring the width of one or more lines of text. |
+| `showEllipsisOnBreakLineOverflow` | Whether the last rendered text line should ends with ellipsis overflow when the last character is a breakline, i.e. "\n". |
 
 Parameters marked with \* behave exactly the same as in `Text`
-
 
 ## Performance
 

@@ -36,28 +36,13 @@ class HomePage extends StatelessWidget {
                   children: const [
                     Flexible(
                       child: EllipsisOverflowText(
-                        'This string will automatically fit within the bounds of the container.',
-                        softWrap: true,
-                        textWidthBasis: TextWidthBasis.longestLine,
+                        'First String here\n'
+                        'This String will fit the given bounds.',
+                        style: TextStyle(fontSize: 22),
+                        showEllipsisOnBreakLineOverflow: true,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text('OLÁ', textAlign: TextAlign.center),
-                    ),
                   ],
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.amber,
-                  child: const Center(
-                    child: EllipsisOverflowText(
-                      'Another String within the bounds of the container.',
-                      softWrap: true,
-                      textWidthBasis: TextWidthBasis.longestLine,
-                    ),
-                  ),
                 ),
               ),
             ],
