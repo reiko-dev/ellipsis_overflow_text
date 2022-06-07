@@ -21,6 +21,7 @@ class EllipsisOverflowText extends StatelessWidget {
     this.textHeightBehavior,
     this.textScaleFactor,
     this.textWidthBasis,
+    this.showEllipsisOnBreakLineOverflow = false,
   })  : assert(data != '', 'text can\'t be empty.'),
         assert(
           maxLines == null || maxLines > 0,
@@ -130,11 +131,62 @@ class EllipsisOverflowText extends StatelessWidget {
   /// edge of the box.
   ///
   /// If this is null, a maximum number of lines for the text to span is setted.
-  ///
   final int? maxLines;
 
-  int? calculateMaxLines(
-      BoxConstraints constraints, TextStyle style, double? textScale) {
+  ///Whether the widget should show ellipsis overflow on the last
+  ///character when it is a breakline, i.e. '\n'
+  final bool showEllipsisOnBreakLineOverflow;
+
+  int? _calculateMaxLines(BoxConstraints constraints, TextPainter textPainter) {
+    if (!constraints.hasBoundedHeight || !constraints.hasBoundedWidth) {
+      return null;
+    }
+
+    final boxes = textPainter.getBoxesForSelection(
+        TextSelection(baseOffset: 0, extentOffset: data.length));
+
+    final textHeight = boxes.first.toRect().height;
+
+    final maxLines = constraints.maxHeight ~/ textHeight;
+
+    if (maxLines < 1) {
+      return null;
+    }
+
+    return maxLines;
+  }
+
+  String _replaceString(int? maxLines, TextPainter textPainter) {
+    if (maxLines == null) return data;
+
+    final metrics = textPainter.computeLineMetrics();
+
+    if (metrics.length <= maxLines || !metrics[maxLines - 1].hardBreak) {
+      return data;
+    }
+
+    int breakLineIndexToReplace = 0;
+    for (var i = 0; i < metrics.length - 1; i++) {
+      if (metrics[i].hardBreak) {
+        if (i == maxLines - 1) {
+          break;
+        }
+        breakLineIndexToReplace++;
+      }
+    }
+
+    final breakLinesIndexesOnString = [];
+    for (var i = 0; i < data.length; i++) {
+      if (data[i] == '\n') {
+        breakLinesIndexesOnString.add(i);
+      }
+    }
+    final start = breakLinesIndexesOnString[breakLineIndexToReplace];
+    return data.replaceRange(start, start + 1, '…\n');
+  }
+
+  List _loadData(
+      constraints, TextStyle style, double? textScale, int? maxLinesx) {
     final textPainter = TextPainter(
       text: TextSpan(text: data, style: style),
       textDirection: TextDirection.ltr,
@@ -146,21 +198,12 @@ class EllipsisOverflowText extends StatelessWidget {
 
     textPainter.layout(maxWidth: constraints.maxWidth);
 
-    final boxes = textPainter.getBoxesForSelection(
-        TextSelection(baseOffset: 0, extentOffset: data.length));
+    int? maxLines = maxLinesx ?? _calculateMaxLines(constraints, textPainter);
 
-    final textHeight = boxes.first.toRect().height;
-
-    if (!constraints.hasBoundedHeight || !constraints.hasBoundedWidth) {
-      return null;
-    }
-
-    final maxLines = constraints.maxHeight ~/ textHeight;
-
-    if (maxLines < 1) {
-      return null;
-    }
-    return maxLines;
+    String newString = showEllipsisOnBreakLineOverflow
+        ? _replaceString(maxLines, textPainter)
+        : data;
+    return [maxLines, newString];
   }
 
   @override
@@ -182,11 +225,15 @@ class EllipsisOverflowText extends StatelessWidget {
         final textScale =
             textScaleFactor ?? MediaQuery.textScaleFactorOf(context);
 
-        final maxLines = this.maxLines ??
-            defaultTextStyle.maxLines ??
-            calculateMaxLines(constraints, textStyle, textScaleFactor);
+        int? maxLines = this.maxLines ?? defaultTextStyle.maxLines;
+
+        final r = _loadData(constraints, textStyle, textScale, maxLines);
+
+        String newString = r[1];
+        maxLines = r[0];
+
         return Text(
-          data,
+          newString,
           key: textKey,
           style: textStyle,
           overflow: TextOverflow.ellipsis,
