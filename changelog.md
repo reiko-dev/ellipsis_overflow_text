@@ -1,3 +1,6 @@
+## 1.0.2
+* Fixed the late initialization error
+
 ## 1.0.1+1
 * Updated CHANGELOG.md
 
