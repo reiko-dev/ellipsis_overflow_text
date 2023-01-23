@@ -212,12 +212,12 @@ class EllipsisOverflowText extends StatelessWidget {
       builder: (context, constraints) {
         final defaultTextStyle = DefaultTextStyle.of(context);
 
-        late TextStyle textStyle;
+        TextStyle? textStyle;
         if (style == null || style!.inherit) {
           textStyle = defaultTextStyle.style.merge(style);
         }
-        if (textStyle.fontSize == null) {
-          textStyle = textStyle.copyWith(
+        if (textStyle?.fontSize == null) {
+          textStyle = textStyle?.copyWith(
             fontSize: EllipsisOverflowText._defaultFontSize,
           );
         }
@@ -227,7 +227,12 @@ class EllipsisOverflowText extends StatelessWidget {
 
         int? maxLines = this.maxLines ?? defaultTextStyle.maxLines;
 
-        final r = _loadData(constraints, textStyle, textScale, maxLines);
+        final r = _loadData(
+          constraints,
+          textStyle ?? const TextStyle(),
+          textScale,
+          maxLines,
+        );
 
         String newString = r[1];
         maxLines = r[0];

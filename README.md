@@ -24,7 +24,7 @@ _Inspired and based on the [AutoSizeText](https://pub.dev/packages/auto_size_tex
 ## Usage
 
 ### Common use
-`EllipsisOverflowText` behaves exactly like a `Text`. The only difference is that it automatically sets the number of lines to be shown on a text with the ellipsis overflow type.
+`EllipsisOverflowText` behaves exactly like a `Text`. The only difference is that it automatically sets the number of characters to be shown on a text with the ellipsis overflow type.
 
 ```dart
 EllipsisOverflowText(
