@@ -29,11 +29,11 @@ class HomePage extends StatelessWidget {
           width: size.width * .3,
           height: size.height * .25,
           color: Colors.white,
-          child: Column(
+          child: const Column(
             children: [
               Expanded(
                 child: Row(
-                  children: const [
+                  children: [
                     Flexible(
                       child: EllipsisOverflowText(
                         'First String here\n'

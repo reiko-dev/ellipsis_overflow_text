@@ -1,3 +1,9 @@
+## 1.1.0
+* Bumps Dart SDK version
+* Updates Readme
+* Bumps Lints to the latest version
+* Fixes deprecated warnings
+
 ## 1.0.2
 * Fixed the late initialization error
 

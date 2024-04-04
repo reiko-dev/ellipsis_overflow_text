@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class EllipsisOverflowText extends StatelessWidget {
   const EllipsisOverflowText(
     this.data, {
-    Key? key,
+    super.key,
     this.textKey,
     this.locale,
     this.maxLines,
@@ -19,7 +19,7 @@ class EllipsisOverflowText extends StatelessWidget {
     this.textAlign,
     this.textDirection,
     this.textHeightBehavior,
-    this.textScaleFactor,
+    this.textScaler,
     this.textWidthBasis,
     this.showEllipsisOnBreakLineOverflow = false,
   })  : assert(data != '', 'text can\'t be empty.'),
@@ -30,8 +30,7 @@ class EllipsisOverflowText extends StatelessWidget {
         assert(
           key == null || key != textKey,
           'Key and textKey must not be equal.',
-        ),
-        super(key: key);
+        );
 
   /// Sets the key for the resulting [Text] widget.
   ///
@@ -90,13 +89,13 @@ class EllipsisOverflowText extends StatelessWidget {
 
   /// The number of font pixels for each logical pixel.
   ///
-  /// For example, if the text scale factor is 1.5, text will be 50% larger than
+  /// For example, if the textScaler is 1.5, text will be 50% larger than
   /// the specified font size.
   ///
-  /// The value given to the constructor as textScaleFactor. If null, will
-  /// use the [MediaQueryData.textScaleFactor] obtained from the ambient
+  /// The value given to the constructor as textScaler. If null, will
+  /// use the [MediaQueryData.textScaler] obtained from the ambient
   /// [MediaQuery], or 1.0 if there is no [MediaQuery] in scope.
-  final double? textScaleFactor;
+  final TextScaler? textScaler;
 
   /// {@template flutter.widgets.Text.semanticsLabel}
   /// An alternative semantics label for this text.
@@ -186,12 +185,12 @@ class EllipsisOverflowText extends StatelessWidget {
   }
 
   List _loadData(
-      constraints, TextStyle style, double? textScale, int? maxLinesx) {
+      constraints, TextStyle style, int? maxLinesx, TextScaler textScaler) {
     final textPainter = TextPainter(
       text: TextSpan(text: data, style: style),
       textDirection: TextDirection.ltr,
       locale: locale ?? style.locale,
-      textScaleFactor: textScale ?? 1,
+      textScaler: textScaler,
       textHeightBehavior: textHeightBehavior,
       strutStyle: strutStyle,
     );
@@ -222,16 +221,15 @@ class EllipsisOverflowText extends StatelessWidget {
           );
         }
 
-        final textScale =
-            textScaleFactor ?? MediaQuery.textScaleFactorOf(context);
+        final textScales = textScaler ?? MediaQuery.textScalerOf(context);
 
         int? maxLines = this.maxLines ?? defaultTextStyle.maxLines;
 
         final r = _loadData(
           constraints,
           textStyle ?? const TextStyle(),
-          textScale,
           maxLines,
+          textScales,
         );
 
         String newString = r[1];
@@ -247,7 +245,7 @@ class EllipsisOverflowText extends StatelessWidget {
           softWrap: softWrap,
           textDirection: textDirection,
           textWidthBasis: textWidthBasis,
-          textScaleFactor: textScale,
+          textScaler: textScaler,
           locale: locale,
           selectionColor: selectionColor,
           semanticsLabel: semanticsLabel,
