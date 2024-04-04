@@ -9,6 +9,7 @@ Flutter widget that automatically sets the number of lines to be shown on a text
 _Inspired and based on the [AutoSizeText](https://pub.dev/packages/auto_size_text) package._
 
 ### Resources:
+
 - [Documentation](https://pub.dev/documentation/ellipsis_overflow_text/latest/ellipsis_overflow_text/EllipsisOverflowText-class.html)
 - [Pub Package](https://pub.dev/packages/ellipsis_overflow_text)
 - [GitHub Repository](https://github.com/reiko-dev/ellipsis_overflow_text)
@@ -115,11 +116,44 @@ Row(
     ),
   ],
 )
-}
 ```
 
 Further explanation can be found [here](https://stackoverflow.com/a/53908204), the question is about the AutoSizeText package, but the answer is the same for this package.</b>
 If you still have problems, please [open an issue](https://github.com/reiko-dev/ellipsis_overflow_text/issues/new).
+
+## Contributing
+We'd love your help to make Ellipsis Overflow Text even better! Here's how you can contribute:
+
+### Pull requests: 
+We welcome pull requests for bug fixes, new features, and improvements.
+Check out our contribution guide, CONTRIBUTING.md, for details on setting up your development environment, coding style, and the pull request process.
+
+### Bug reports: 
+Encountered a bug? Please let us know by filing a clear and concise issue report. The more information you provide, the easier it will be for us to fix the issue.
+
+Discussion: Have an idea or want to chat about Ellipsis Overflow Text? Don't hesitate to open an issue or leave a comment on an existing one.
+Every contribution counts!  Whether it's a bug fix, a new feature, or just reporting an issue, your help is what makes open source projects thrive.
+
+Here are some additional tips for contributing:
+
+Test your changes:
+
+Make sure your changes don't introduce any regressions by running the tests before submitting a pull request.
+
+Follow the coding style:
+
+This helps keep the codebase clean and consistent. Refer to the contribution guide for details.
+
+Be clear and concise:
+
+When reporting bugs or proposing new features, be clear and concise in your descriptions.
+
+Be respectful:
+
+Remember, we're all here to work together to improve Ellipsis Overflow Text.
+
+
+We appreciate your contributions!
 
 ## MIT License
 ```
